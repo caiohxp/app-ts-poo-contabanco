@@ -1,11 +1,15 @@
-class Cliente extends Pessoa implements IUsuario{
+import Pessoa from "./pessoa";
+import IUsuario from "./iusuario";
+export default class Cliente extends Pessoa implements IUsuario{
     private vip: boolean;
     enderecos: Endereco[];
     conta: Conta[];
     
-    constructor(vip: boolean, p: Pessoa){
-        super(p.getCPF(),p.getNome(),p.getTelefone());
-        this.vip = vip;
+    constructor(nome: string, cpf: string, telefone: string, vip: string){
+        super(nome, cpf, telefone);
+        this.vip = "Sim"? true : false;
+        this.enderecos = [];
+        this.conta = [];
     }
 
     listarEnderecos(): void{
@@ -14,10 +18,10 @@ class Cliente extends Pessoa implements IUsuario{
     autenticar(): boolean {
         return true;
     }
-    setEndereco(endereco): void{
+    setEndereco(endereco: Endereco): void{
         this.enderecos.push(endereco);
     }
-    setConta(conta): void{
+    setConta(conta: Conta): void{
         this.conta.push(conta);
     }
 }

@@ -1,14 +1,11 @@
-abstract class Pessoa {
+export default abstract class Pessoa {
     private cpf: string;
     private nome: string;
     private telefone: string;
-    constructor(cpf: string, nome: string, telefone: string){
-        this.setCPF(cpf);
+    constructor(nome: string, cpf: string, telefone: string){
         this.nome = nome;
-        this.telefone = telefone;
-    }
-    setCPF(cpf: string){
         this.cpf = cpf;
+        this.telefone = telefone;
     }
     getCPF(){
         return this.cpf;
