@@ -1,4 +1,4 @@
-class CCorrente extends Conta{
+class ContaCorrente extends Conta{
     private limite: number;
 
     constructor(limite: number, nconta: string){
@@ -10,6 +10,10 @@ class CCorrente extends Conta{
         
     }
     calcularSaldo(): number{
-        return 1;
+        return this.creditos.reduce((a, b) => {
+            return a + b.getValor();
+        }, 0) - this.debitos.reduce((a, b) => {
+            return a + b.getValor();
+        }, 0);
     }
 }

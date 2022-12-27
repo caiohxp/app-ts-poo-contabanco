@@ -18,10 +18,17 @@ export default class Cliente extends Pessoa implements IUsuario{
     autenticar(): boolean {
         return true;
     }
-    setEndereco(endereco: Endereco): void{
-        this.enderecos.push(endereco);
+    setEndereco(cep: string, logradouro: string, numero: string, complemento: string, cidade: string, uf: string): void{
+        this.enderecos.push(new Endereco(cep,logradouro,numero,complemento,cidade,uf));
     }
     setConta(conta: Conta): void{
         this.conta.push(conta);
+    }
+    getConta(numero: string): any{
+        this.conta.forEach(c => {
+            if(numero === c.getNumero()){
+                return c;
+            }
+        })
     }
 }

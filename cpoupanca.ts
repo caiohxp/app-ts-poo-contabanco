@@ -1,7 +1,8 @@
-class ContaPoupanca {
+class ContaPoupanca extends Conta {
     private rentabilidadeMensal: number;
 
-    constructor(rM: number){
+    constructor(rM: number, nconta: string){
+        super(nconta);
         this.rentabilidadeMensal = rM;
     }
 
