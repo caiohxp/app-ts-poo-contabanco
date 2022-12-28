@@ -1,5 +1,7 @@
 import Pessoa from "./pessoa";
 import IUsuario from "./iusuario";
+import Endereco from "./endereco";
+import Conta from "./conta";
 export default class Cliente extends Pessoa implements IUsuario{
     private vip: boolean;
     enderecos: Endereco[];

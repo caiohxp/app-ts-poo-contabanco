@@ -1,5 +1,10 @@
 "use strict";
-class CCorrente extends Conta {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const conta_1 = __importDefault(require("./conta"));
+class ContaCorrente extends conta_1.default {
     constructor(limite, nconta) {
         super(nconta);
         this.limite = limite;
@@ -7,6 +12,11 @@ class CCorrente extends Conta {
     transferir(contaDestino, valor) {
     }
     calcularSaldo() {
-        return 1;
+        return this.creditos.reduce((a, b) => {
+            return a + b.getValor();
+        }, 0) - this.debitos.reduce((a, b) => {
+            return a + b.getValor();
+        }, 0);
     }
 }
+exports.default = ContaCorrente;

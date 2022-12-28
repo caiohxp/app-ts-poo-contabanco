@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const pessoa_1 = __importDefault(require("./pessoa"));
+const endereco_1 = __importDefault(require("./endereco"));
 class Cliente extends pessoa_1.default {
     constructor(nome, cpf, telefone, vip) {
         super(nome, cpf, telefone);
@@ -17,11 +18,18 @@ class Cliente extends pessoa_1.default {
     autenticar() {
         return true;
     }
-    setEndereco(endereco) {
-        this.enderecos.push(endereco);
+    setEndereco(cep, logradouro, numero, complemento, cidade, uf) {
+        this.enderecos.push(new endereco_1.default(cep, logradouro, numero, complemento, cidade, uf));
     }
     setConta(conta) {
         this.conta.push(conta);
+    }
+    getConta(numero) {
+        this.conta.forEach(c => {
+            if (numero === c.getNumero()) {
+                return c;
+            }
+        });
     }
 }
 exports.default = Cliente;

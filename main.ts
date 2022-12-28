@@ -1,6 +1,7 @@
 import Cargo from "./cargo";
 import Funcionario from "./funcionario";
 import Cliente from "./cliente";
+import ContaCorrente from "./ccorrente";
 
 // APP1
 
@@ -21,8 +22,4 @@ cliente1.listarEnderecos();
 
 const clienteapp31 = new Cliente("Gustavo", "32429774660", "21987556509", "Sim");
 clienteapp31.setConta(new ContaCorrente(1000, "010360206"));
-clienteapp31.getConta("010360206").depositar(100);
-clienteapp31.getConta("010360206").depositar(100);
-clienteapp31.getConta("010360206").depositar(100);
-clienteapp31.getConta("010360206").sacar(50);
-console.log(clienteapp31.getConta("010360206").calcularSaldo());
+console.log(clienteapp31)

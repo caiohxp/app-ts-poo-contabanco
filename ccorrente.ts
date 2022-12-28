@@ -1,4 +1,5 @@
-class ContaCorrente extends Conta{
+import Conta from "./conta";
+export default class ContaCorrente extends Conta{
     private limite: number;
 
     constructor(limite: number, nconta: string){

@@ -1,3 +1,4 @@
+import Conta from "./conta";
 class ContaPoupanca extends Conta {
     private rentabilidadeMensal: number;
 

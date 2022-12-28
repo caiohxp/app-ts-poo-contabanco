@@ -1,4 +1,7 @@
-abstract class Conta {
+import Debito from "./debito";
+import Credito from "./credito";
+
+export default abstract class Conta {
     private numero: string;
     creditos: Credito[];
     debitos: Debito[];

@@ -1,7 +1,12 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Debito {
-    constructor(valor) {
+    constructor(valor, data = new Date()) {
         this.valor = valor;
-        this.data = new Date();
+        this.data = data;
+    }
+    getValor() {
+        return this.valor;
     }
 }
+exports.default = Debito;

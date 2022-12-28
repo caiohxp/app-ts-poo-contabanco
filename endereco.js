@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Endereco {
     constructor(cep, logradouro, numero, complemento, cidade, uf) {
         this.cep = cep;
@@ -9,3 +10,4 @@ class Endereco {
         this.uf = uf;
     }
 }
+exports.default = Endereco;
