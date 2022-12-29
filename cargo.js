@@ -1,8 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Cargo {
-    constructor(n) {
+exports.__esModule = true;
+var Cargo = /** @class */ (function () {
+    function Cargo(n) {
         this.nome = n;
     }
-}
-exports.default = Cargo;
+    return Cargo;
+}());
+exports["default"] = Cargo;

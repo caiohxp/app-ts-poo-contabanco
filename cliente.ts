@@ -9,7 +9,7 @@ export default class Cliente extends Pessoa implements IUsuario{
     
     constructor(nome: string, cpf: string, telefone: string, vip: string){
         super(nome, cpf, telefone);
-        this.vip = "Sim"? true : false;
+        this.vip = vip === "Sim"? true : false;
         this.enderecos = [];
         this.conta = [];
     }
@@ -26,11 +26,7 @@ export default class Cliente extends Pessoa implements IUsuario{
     setConta(conta: Conta): void{
         this.conta.push(conta);
     }
-    getConta(numero: string): any{
-        this.conta.forEach(c => {
-            if(numero === c.getNumero()){
-                return c;
-            }
-        })
+    getConta(numero: string): Conta{
+        return this.conta[this.conta.findIndex(c => numero === c.getNumero())];
     }
 }

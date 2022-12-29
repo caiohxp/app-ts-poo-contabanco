@@ -1,19 +1,20 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Pessoa {
-    constructor(nome, cpf, telefone) {
+exports.__esModule = true;
+var Pessoa = /** @class */ (function () {
+    function Pessoa(nome, cpf, telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
     }
-    getCPF() {
+    Pessoa.prototype.getCPF = function () {
         return this.cpf;
-    }
-    getNome() {
+    };
+    Pessoa.prototype.getNome = function () {
         return this.nome;
-    }
-    getTelefone() {
+    };
+    Pessoa.prototype.getTelefone = function () {
         return this.telefone;
-    }
-}
-exports.default = Pessoa;
+    };
+    return Pessoa;
+}());
+exports["default"] = Pessoa;

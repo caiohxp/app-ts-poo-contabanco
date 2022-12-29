@@ -8,7 +8,7 @@ const endereco_1 = __importDefault(require("./endereco"));
 class Cliente extends pessoa_1.default {
     constructor(nome, cpf, telefone, vip) {
         super(nome, cpf, telefone);
-        this.vip = "Sim" ? true : false;
+        this.vip = vip === "Sim" ? true : false;
         this.enderecos = [];
         this.conta = [];
     }
@@ -25,11 +25,7 @@ class Cliente extends pessoa_1.default {
         this.conta.push(conta);
     }
     getConta(numero) {
-        this.conta.forEach(c => {
-            if (numero === c.getNumero()) {
-                return c;
-            }
-        });
+        return this.conta[this.conta.findIndex(c => numero === c.getNumero())];
     }
 }
 exports.default = Cliente;

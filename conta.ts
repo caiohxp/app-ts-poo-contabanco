@@ -12,13 +12,12 @@ export default abstract class Conta {
         this.debitos = [];
     }
 
-    depositar(valor: number){
-        this.creditos.push(new Credito(valor, new Date()));
+    depositar(valor: number, data = new Date()){
+        this.creditos.push(new Credito(valor, data));
     }
-    sacar(valor: number){
-        this.debitos.push(new Debito(valor, new Date()));
-    }
+    abstract sacar(valor: number, data?: Date): void;
     getNumero(){
         return this.numero;
     }
+    abstract calcularSaldo(): number;
 }
