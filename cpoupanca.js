@@ -11,13 +11,22 @@ class ContaPoupanca extends conta_1.default {
         this.rentabilidadeMensal = rM;
     }
     sacar(valor, data = new Date()) {
-        this.calcularSaldo() - valor < 0 ? console.log("Saque de", valor, "ultrapassa o limite.") : this.debitos.push(new debito_1.default(valor, new Date()));
+        this.calcularSaldo() - valor < 0 ? console.log("Saque de", valor, "ultrapassa o limite.") : this.debitos.push(new debito_1.default(valor, data));
     }
     calcularRendimento() {
+        //Criar um saldo mensal
+        let saldoMensal = this.creditos.concat(this.debitos);
+        saldoMensal = saldoMensal.sort((a, b) => a.getData() - b.getData());
+        let meses = (saldoMensal[saldoMensal.length - 1].getData() - saldoMensal[0].getData()) / (1000 * 60 * 60 * 24 * 30);
+        console.log(meses);
         return 1;
     }
     calcularSaldo() {
-        return 1;
+        return this.creditos.reduce((a, b) => {
+            return a + b.getValor();
+        }, 0) - this.debitos.reduce((a, b) => {
+            return a + b.getValor();
+        }, 0);
     }
 }
 exports.default = ContaPoupanca;

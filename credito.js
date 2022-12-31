@@ -5,6 +5,9 @@ class Credito {
         this.valor = valor;
         this.data = data;
     }
+    getData() {
+        return this.data.getTime();
+    }
     getValor() {
         return this.valor;
     }

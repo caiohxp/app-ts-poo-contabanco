@@ -11,6 +11,8 @@ class ContaCorrente extends conta_1.default {
         this.limite = limite;
     }
     transferir(contaDestino, valor) {
+        this.sacar(valor);
+        contaDestino.depositar(valor);
     }
     sacar(valor, data = new Date()) {
         this.calcularSaldo() - valor < 0 && Math.abs(this.calcularSaldo() - valor) > this.limite ? console.log("Saque de", valor, "ultrapassa o limite.") : this.debitos.push(new debito_1.default(valor, new Date()));

@@ -9,7 +9,8 @@ export default class ContaCorrente extends Conta{
     }
 
     transferir(contaDestino: Conta, valor: number): void{
-        
+        this.sacar(valor);
+        contaDestino.depositar(valor);
     }
     sacar(valor: number, data = new Date()): void{
         this.calcularSaldo()-valor < 0 && Math.abs(this.calcularSaldo()-valor) > this.limite? console.log("Saque de",valor,"ultrapassa o limite.") : this.debitos.push(new Debito(valor, new Date()));

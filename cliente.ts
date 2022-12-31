@@ -2,6 +2,7 @@ import Pessoa from "./pessoa";
 import IUsuario from "./iusuario";
 import Endereco from "./endereco";
 import Conta from "./conta";
+import ContaCorrente from "./ccorrente";
 export default class Cliente extends Pessoa implements IUsuario{
     private vip: boolean;
     enderecos: Endereco[];
@@ -27,6 +28,11 @@ export default class Cliente extends Pessoa implements IUsuario{
         this.conta.push(conta);
     }
     getConta(numero: string): Conta{
-        return this.conta[this.conta.findIndex(c => numero === c.getNumero())];
+        var index = 0;
+        this.conta.forEach((c,i) => {
+            if(numero === c.getNumero())
+                index = i;
+        })
+        return this.conta[index];
     }
 }

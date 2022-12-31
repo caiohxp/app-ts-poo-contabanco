@@ -25,7 +25,12 @@ class Cliente extends pessoa_1.default {
         this.conta.push(conta);
     }
     getConta(numero) {
-        return this.conta[this.conta.findIndex(c => numero === c.getNumero())];
+        var index = 0;
+        this.conta.forEach((c, i) => {
+            if (numero === c.getNumero())
+                index = i;
+        });
+        return this.conta[index];
     }
 }
 exports.default = Cliente;

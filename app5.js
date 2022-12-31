@@ -12,3 +12,7 @@ for (let i = 1; i <= 12; i++) {
 }
 cliente5.getConta("13579753").sacar(100, new Date("2022-03-05"));
 cliente5.getConta("13579753").sacar(200, new Date("2022-07-08"));
+cliente5.getConta("13579753").depositar(200, new Date(`2020-05-01`));
+//cliente5.getConta("13579753").creditos.sort((a,b) => a.getData() - b.getData()).forEach(c => console.log(c));
+console.log(cliente5.getConta("13579753").calcularRendimento());
+console.log(cliente5.getConta("13579753").calcularSaldo());
