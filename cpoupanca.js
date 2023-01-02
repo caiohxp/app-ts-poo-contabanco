@@ -11,35 +11,55 @@ class ContaPoupanca extends conta_1.default {
         this.rentabilidadeMensal = rM;
     }
     sacar(valor, data = new Date()) {
-        this.calcularSaldo() - valor < 0 ? console.log("Saque de", valor, "ultrapassa o limite.") : this.debitos.push(new debito_1.default(valor, data));
-        this.debitos.sort((a, b) => a.getData().getTime() - b.getData().getTime());
+        this.calcularSaldo() - valor < 0 ? console.log("Saque de", valor, "ultrapassa o limite.") : this.operacoes.push(new debito_1.default(valor, data));
+        this.operacoes.sort((a, b) => a.getData().getTime() - b.getData().getTime());
     }
-    calcularRendimento() {
+    calcularRendimento(mes = 0, ano = 0) {
         //Testando Calcular Rendimento
-        let saldoMensalaux = this.creditos.concat(this.debitos);
-        saldoMensalaux = saldoMensalaux.sort((a, b) => a.getData().getTime() - b.getData().getTime());
-        let meses = (saldoMensalaux[saldoMensalaux.length - 1].getData().getTime() - saldoMensalaux[0].getData().getTime()) / (1000 * 60 * 60 * 24 * 30);
-        console.log(Math.floor(meses));
-        let saldoMensal = [];
-        for (let i = 0; i < 31; i++) {
-            saldoMensal.push();
-        }
-        return 1;
+        // if (mes == 0)
+        //     mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
+        // if (ano == 0)
+        //     ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+        // let meses = Math.ceil((this.operacoes[this.operacoes.length - 1].getData().getTime() - this.operacoes[0].getData().getTime()) / (1000 * 60 * 60 * 24 * 30));
+        // let vetorRentabilidade = [];
+        // let rentabilidadeAcumulada = 0;
+        // for (let iano = this.operacoes[0].getData().getFullYear(); iano <= this.operacoes[this.operacoes.length - 1].getData().getFullYear(); iano++) {
+        //     for (let imes = iano == this.operacoes[0].getData().getFullYear()? this.operacoes[0].getData().getMonth() + 1 : 1; imes <= (iano == this.operacoes[this.operacoes.length-1].getData().getFullYear()? this.operacoes[this.operacoes.length-1].getData().getMonth() + 1 : 12); imes++) {
+        //         vetorRentabilidade.push(
+        //             {
+        //                 valor: this.calcularSaldo(imes, iano) * this.rentabilidadeMensal,
+        //                 mes: imes,
+        //                 ano: iano
+        //             }
+        //         )
+        //     }
+        // }
+        // vetorRentabilidade.forEach(v => console.log(v));
+        // return vetorRentabilidade.reduce((a,b) => {
+        //     return a + b.valor;
+        // }, 0);
+        return 1 + this.rentabilidadeMensal;
     }
-    calcularSaldo(mes, ano) {
-        let operacao = this.creditos.concat(this.debitos);
-        operacao = operacao.sort((a, b) => a.getData().getTime() - b.getData().getTime());
-        if (mes == undefined)
-            mes = operacao[operacao.length - 1].getData().getMonth() + 1;
-        if (ano == undefined)
-            ano = operacao[operacao.length - 1].getData().getFullYear();
-        operacao.forEach(o => console.log(o));
-        console.log(mes, ano);
-        return this.creditos.reduce((a, b) => {
-            return a + b.getValor();
-        }, 0) - this.debitos.reduce((a, b) => {
-            return a + b.getValor();
-        }, 0);
+    calcularSaldo(mes = 0, ano = 0) {
+        //Caso o mês e o ano não sejam dados como parâmetro será dada a data da ultima
+        if (mes == 0)
+            mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
+        if (ano == 0)
+            ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+        let index = 0;
+        this.operacoes.forEach((o, i) => {
+            //pega o index da data mais atual até a data fornecida pelo parâmetro
+            //adiciono mais 1 ao mês pra pegar o getTime do mês inteiro
+            if (o.getData().getTime() < (mes === 12 ? new Date(`${ano + 1}-01`).getTime() : new Date(`${ano}-${mes + 1}`).getTime()))
+                index = i;
+        });
+        this.operacoes.forEach(o => console.log(o));
+        let saldo = 0;
+        for (let i = 0; i <= index; i++) {
+            saldo += this.operacoes[i].getValor();
+            saldo *= this.calcularRendimento();
+        }
+        return saldo;
     }
 }
 exports.default = ContaPoupanca;

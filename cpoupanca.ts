@@ -8,34 +8,55 @@ export default class ContaPoupanca extends Conta {
         this.rentabilidadeMensal = rM;
     }
     sacar(valor: number, data = new Date()): void {
-        this.calcularSaldo() - valor < 0 ? console.log("Saque de", valor, "ultrapassa o limite.") : this.debitos.push(new Debito(valor, data));
-        this.debitos.sort((a,b) => a.getData().getTime() - b.getData().getTime());
+        this.calcularSaldo() - valor < 0 ? console.log("Saque de", valor, "ultrapassa o limite.") : this.operacoes.push(new Debito(valor, data));
+        this.operacoes.sort((a, b) => a.getData().getTime() - b.getData().getTime());
     }
-    calcularRendimento(): number {
+    calcularRendimento(mes = 0, ano = 0): number {
         //Testando Calcular Rendimento
-        let saldoMensalaux: any[] = (this.creditos as any).concat((this.debitos as any));
-        saldoMensalaux = saldoMensalaux.sort((a,b) => a.getData().getTime() - b.getData().getTime());
-        let meses = (saldoMensalaux[saldoMensalaux.length-1].getData().getTime() - saldoMensalaux[0].getData().getTime())/(1000*60*60*24*30)
-        console.log(Math.floor(meses))
-        let saldoMensal: object[] = [];
-        for(let i = 0; i<31;i++){
-            saldoMensal.push()
-        }
-        return 1;
+        // if (mes == 0)
+        //     mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
+        // if (ano == 0)
+        //     ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+        // let meses = Math.ceil((this.operacoes[this.operacoes.length - 1].getData().getTime() - this.operacoes[0].getData().getTime()) / (1000 * 60 * 60 * 24 * 30));
+        // let vetorRentabilidade = [];
+        // let rentabilidadeAcumulada = 0;
+        // for (let iano = this.operacoes[0].getData().getFullYear(); iano <= this.operacoes[this.operacoes.length - 1].getData().getFullYear(); iano++) {
+        //     for (let imes = iano == this.operacoes[0].getData().getFullYear()? this.operacoes[0].getData().getMonth() + 1 : 1; imes <= (iano == this.operacoes[this.operacoes.length-1].getData().getFullYear()? this.operacoes[this.operacoes.length-1].getData().getMonth() + 1 : 12); imes++) {
+        //         vetorRentabilidade.push(
+        //             {
+        //                 valor: this.calcularSaldo(imes, iano) * this.rentabilidadeMensal,
+        //                 mes: imes,
+        //                 ano: iano
+        //             }
+        //         )
+        //     }
+        // }
+        // vetorRentabilidade.forEach(v => console.log(v));
+        // return vetorRentabilidade.reduce((a,b) => {
+        //     return a + b.valor;
+        // }, 0);
+        return 1+this.rentabilidadeMensal;
     }
-    calcularSaldo(mes?:number, ano?:number): number {
-        let operacao: any[] = (this.creditos as any).concat((this.debitos as any));
-       operacao =operacao.sort((a,b) => a.getData().getTime() - b.getData().getTime());
-        if(mes == undefined)
-            mes = operacao[operacao.length-1].getData().getMonth()+1;
-        if(ano == undefined)
-            ano = operacao[operacao.length-1].getData().getFullYear();
-        operacao.forEach(o => console.log(o))
-        console.log(mes,ano)
-        return this.creditos.reduce((a, b) => {
-            return a + b.getValor();
-        }, 0) - this.debitos.reduce((a, b) => {
-            return a + b.getValor();
-        }, 0);
+    calcularSaldo(mes = 0, ano = 0): number {
+        //Caso o mês e o ano não sejam dados como parâmetro será dada a data da ultima
+        if (mes == 0)
+            mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
+        if (ano == 0)
+            ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+        let index = 0;
+        this.operacoes.forEach((o, i) => {
+            //pega o index da data mais atual até a data fornecida pelo parâmetro
+            //adiciono mais 1 ao mês pra pegar o getTime do mês inteiro
+            if (o.getData().getTime() < (mes === 12 ? new Date(`${ano + 1}-01`).getTime() : new Date(`${ano}-${mes + 1}`).getTime()))
+                index = i;
+        })
+        this.operacoes.forEach(o => console.log(o));
+        let saldo = 0;
+        for (let i = 0; i <= index; i++){
+            saldo += this.operacoes[i].getValor();
+            saldo*=this.calcularRendimento();
+        }
+
+        return saldo;
     }
 }

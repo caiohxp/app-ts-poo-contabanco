@@ -3,7 +3,7 @@ export default class Debito {
     private data: Date;
 
     constructor(valor: number, data: Date){
-        this.valor = valor;
+        this.valor = -valor;
         this.data = data;
     }
     getData(){

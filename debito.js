@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var Debito = /** @class */ (function () {
     function Debito(valor, data) {
-        this.valor = valor;
+        this.valor = -valor;
         this.data = data;
     }
     Debito.prototype.getData = function () {

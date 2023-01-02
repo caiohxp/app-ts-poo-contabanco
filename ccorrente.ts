@@ -14,32 +14,26 @@ export default class ContaCorrente extends Conta {
         contaDestino.depositar(valor);
     }
     sacar(valor: number, data = new Date()): void {
-        this.calcularSaldo() - valor < 0 && Math.abs(this.calcularSaldo() - valor) > this.limite ? console.log("Saque de", valor, "ultrapassa o limite.") : this.debitos.push(new Debito(valor, data));
-        this.debitos.sort((a, b) => a.getData().getTime() - b.getData().getTime());
+        this.calcularSaldo() - valor < 0 && Math.abs(this.calcularSaldo() - valor) > this.limite ? console.log("Saque de", valor, "ultrapassa o limite.") : this.operacoes.push(new Debito(valor, data));
+        this.operacoes.sort((a, b) => a.getData().getTime() - b.getData().getTime());
     }
-    calcularSaldo(mes = 0, ano?: number): number {
-        //continuar amanhã
-        let saldo = 0;
-        let operacoes: any[] = (this.creditos as any).concat((this.debitos as any));
-        operacoes = operacoes.sort((a, b) => a.getData().getTime() - b.getData().getTime());
+    calcularSaldo(mes = 0, ano = 0): number {
+        //Caso o mês e o ano não sejam dados como parâmetro será dada a data da ultima
         if (mes == 0)
-            mes = operacoes[operacoes.length - 1].getData().getMonth() + 1;
+            mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
         if (ano == 0)
-            ano = operacoes[operacoes.length - 1].getData().getFullYear();
-        for (let i = this.creditos[0].getData().getMonth()+1; i <= mes; i++) {
-            for (const operacao of operacoes) {
-                const mesOperacao = operacao.data.getMonth() + 1;
-                const anoOperacao = operacao.data.getFullYear();
-                if (mesOperacao === mes && anoOperacao === ano) {
-                    saldo += operacao.valor;
-                }
-            }
-        }
-        //codigoTesteAcima
-        return this.creditos.reduce((a, b) => {
-            return a + b.getValor();
-        }, 0) - this.debitos.reduce((a, b) => {
-            return a + b.getValor();
-        }, 0);
+            ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+        let index = 0;
+        this.operacoes.forEach((o, i) => {
+            //pega o index da data mais atual até a data fornecida pelo parâmetro
+            //adiciono mais 1 ao mês pra pegar o getTime do mês inteiro
+            if (o.getData().getTime()< (mes === 12? new Date(`${ano+1}-01`).getTime() : new Date(`${ano}-${mes+1}`).getTime()))
+                index = i;
+        })
+        let saldo = 0;
+        for (let i = 0; i <= index; i++)
+            saldo += this.operacoes[i].getValor();
+
+        return saldo;
     }
 }
