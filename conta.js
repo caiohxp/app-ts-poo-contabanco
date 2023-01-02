@@ -1,20 +1,20 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const credito_1 = __importDefault(require("./credito"));
-class Conta {
-    constructor(num) {
+exports.__esModule = true;
+var credito_1 = require("./credito");
+var Conta = /** @class */ (function () {
+    function Conta(num) {
         this.numero = num;
         this.creditos = [];
         this.debitos = [];
     }
-    depositar(valor, data = new Date()) {
-        this.creditos.push(new credito_1.default(valor, data));
-    }
-    getNumero() {
+    Conta.prototype.depositar = function (valor, data) {
+        if (data === void 0) { data = new Date(); }
+        this.creditos.push(new credito_1["default"](valor, data));
+        this.creditos.sort(function (a, b) { return a.getData().getTime() - b.getData().getTime(); });
+    };
+    Conta.prototype.getNumero = function () {
         return this.numero;
-    }
-}
-exports.default = Conta;
+    };
+    return Conta;
+}());
+exports["default"] = Conta;

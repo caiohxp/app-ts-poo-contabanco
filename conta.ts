@@ -14,10 +14,11 @@ export default abstract class Conta {
 
     depositar(valor: number, data = new Date()){
         this.creditos.push(new Credito(valor, data));
+        this.creditos.sort((a,b) => a.getData().getTime() - b.getData().getTime());
     }
     abstract sacar(valor: number, data?: Date): void;
     getNumero(){
         return this.numero;
     }
-    abstract calcularSaldo(): number;
+    abstract calcularSaldo(mes?:number, ano?:number): number;
 }

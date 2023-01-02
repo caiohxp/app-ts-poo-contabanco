@@ -1,15 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Debito {
-    constructor(valor, data) {
+exports.__esModule = true;
+var Debito = /** @class */ (function () {
+    function Debito(valor, data) {
         this.valor = valor;
         this.data = data;
     }
-    getData() {
-        return this.data.getTime();
-    }
-    getValor() {
+    Debito.prototype.getData = function () {
+        return this.data;
+    };
+    Debito.prototype.getValor = function () {
         return this.valor;
-    }
-}
-exports.default = Debito;
+    };
+    return Debito;
+}());
+exports["default"] = Debito;

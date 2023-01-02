@@ -1,36 +1,51 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const pessoa_1 = __importDefault(require("./pessoa"));
-const endereco_1 = __importDefault(require("./endereco"));
-class Cliente extends pessoa_1.default {
-    constructor(nome, cpf, telefone, vip) {
-        super(nome, cpf, telefone);
-        this.vip = vip === "Sim" ? true : false;
-        this.enderecos = [];
-        this.conta = [];
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var pessoa_1 = require("./pessoa");
+var endereco_1 = require("./endereco");
+var Cliente = /** @class */ (function (_super) {
+    __extends(Cliente, _super);
+    function Cliente(nome, cpf, telefone, vip) {
+        var _this = _super.call(this, nome, cpf, telefone) || this;
+        _this.vip = vip === "Sim" ? true : false;
+        _this.enderecos = [];
+        _this.conta = [];
+        return _this;
     }
-    listarEnderecos() {
-        this.enderecos.forEach(e => console.log(e));
-    }
-    autenticar() {
+    Cliente.prototype.listarEnderecos = function () {
+        this.enderecos.forEach(function (e) { return console.log(e); });
+    };
+    Cliente.prototype.autenticar = function () {
         return true;
-    }
-    setEndereco(cep, logradouro, numero, complemento, cidade, uf) {
-        this.enderecos.push(new endereco_1.default(cep, logradouro, numero, complemento, cidade, uf));
-    }
-    setConta(conta) {
+    };
+    Cliente.prototype.setEndereco = function (cep, logradouro, numero, complemento, cidade, uf) {
+        this.enderecos.push(new endereco_1["default"](cep, logradouro, numero, complemento, cidade, uf));
+    };
+    Cliente.prototype.setConta = function (conta) {
         this.conta.push(conta);
-    }
-    getConta(numero) {
+    };
+    Cliente.prototype.getConta = function (numero) {
         var index = 0;
-        this.conta.forEach((c, i) => {
+        this.conta.forEach(function (c, i) {
             if (numero === c.getNumero())
                 index = i;
         });
         return this.conta[index];
-    }
-}
-exports.default = Cliente;
+    };
+    return Cliente;
+}(pessoa_1["default"]));
+exports["default"] = Cliente;

@@ -7,7 +7,7 @@ export default class Credito {
         this.data = data;
     }
     getData(){
-        return this.data.getTime();
+        return this.data;
     }
     getValor(){
         return this.valor;

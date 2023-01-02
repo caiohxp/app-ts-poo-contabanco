@@ -1,15 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Credito {
-    constructor(valor, data) {
+exports.__esModule = true;
+var Credito = /** @class */ (function () {
+    function Credito(valor, data) {
         this.valor = valor;
         this.data = data;
     }
-    getData() {
-        return this.data.getTime();
-    }
-    getValor() {
+    Credito.prototype.getData = function () {
+        return this.data;
+    };
+    Credito.prototype.getValor = function () {
         return this.valor;
-    }
-}
-exports.default = Credito;
+    };
+    return Credito;
+}());
+exports["default"] = Credito;
