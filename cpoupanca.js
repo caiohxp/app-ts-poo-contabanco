@@ -16,30 +16,22 @@ class ContaPoupanca extends conta_1.default {
     }
     calcularRendimento(mes = 0, ano = 0) {
         //Testando Calcular Rendimento
-        if (mes == 0)
-            mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
-        if (ano == 0)
-            ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
         let vetorRentabilidade = [];
-        let rentabilidadeAcumulada = 0;
         for (let iano = this.operacoes[0].getData().getFullYear(); iano <= ano; iano++) {
             for (let imes = iano == this.operacoes[0].getData().getFullYear() ? this.operacoes[0].getData().getMonth() + 1 : 1; imes <= (iano == ano ? mes : 12); imes++) {
-                let aux = 0;
+                let valor = 0;
                 this.operacoes.forEach(o => {
                     if (o.getData().getMonth() + 1 === imes && o.getData().getFullYear() === iano) {
-                        aux += o.getValor();
+                        valor += o.getValor();
                     }
                 });
-                vetorRentabilidade.push({
-                    valor: aux,
-                    mes: imes,
-                    ano: iano
-                });
+                vetorRentabilidade.push(valor);
             }
         }
-        vetorRentabilidade.forEach(v => console.log(v));
         return vetorRentabilidade.reduce((a, b) => {
-            return (a + b.valor) * (1 + this.rentabilidadeMensal);
+            return (a + b) * (1 + this.rentabilidadeMensal);
+        }, 0) - vetorRentabilidade.reduce((a, b) => {
+            return a + b;
         }, 0);
     }
     calcularSaldo(mes = 0, ano = 0) {
@@ -60,7 +52,7 @@ class ContaPoupanca extends conta_1.default {
         for (let i = 0; i <= index; i++) {
             saldo += this.operacoes[i].getValor();
         }
-        return this.calcularRendimento(mes, ano);
+        return saldo + this.calcularRendimento(mes, ano);
     }
 }
 exports.default = ContaPoupanca;

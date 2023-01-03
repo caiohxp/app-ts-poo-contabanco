@@ -51,7 +51,7 @@ var ContaCorrente = /** @class */ (function (_super) {
         var saldo = 0;
         for (var i = 0; i <= index; i++)
             saldo += this.operacoes[i].getValor();
-        return saldo;
+        return saldo + this.limite;
     };
     return ContaCorrente;
 }(conta_1["default"]));
