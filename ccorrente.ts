@@ -34,6 +34,6 @@ export default class ContaCorrente extends Conta {
         for (let i = 0; i <= index; i++)
             saldo += this.operacoes[i].getValor();
 
-        return saldo;
+        return saldo+this.limite;
     }
 }

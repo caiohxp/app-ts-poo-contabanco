@@ -13,5 +13,6 @@ for (let i = 1; i <= 12; i++) {
 cliente5.getConta("13579753").sacar(100, new Date("2022-03-05"));
 cliente5.getConta("13579753").sacar(200, new Date("2022-07-08"));
 //cliente5.getConta("13579753").depositar(200,new Date(`2020-05-01`));
-//console.log((cliente5.getConta("13579753") as ContaPoupanca).calcularRendimento())
+console.log(cliente5.getConta("13579753").calcularRendimento());
 console.log("Seu saldo até este mês é R$", cliente5.getConta("13579753").calcularSaldo());
+console.log((((((((((((200 * 1.01 + 200) * 1.01 + 100) * 1.01 + 200) * 1.01 + 200) * 1.01 + 200) * 1.01)))))));

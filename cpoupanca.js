@@ -16,29 +16,31 @@ class ContaPoupanca extends conta_1.default {
     }
     calcularRendimento(mes = 0, ano = 0) {
         //Testando Calcular Rendimento
-        // if (mes == 0)
-        //     mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
-        // if (ano == 0)
-        //     ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
-        // let meses = Math.ceil((this.operacoes[this.operacoes.length - 1].getData().getTime() - this.operacoes[0].getData().getTime()) / (1000 * 60 * 60 * 24 * 30));
-        // let vetorRentabilidade = [];
-        // let rentabilidadeAcumulada = 0;
-        // for (let iano = this.operacoes[0].getData().getFullYear(); iano <= this.operacoes[this.operacoes.length - 1].getData().getFullYear(); iano++) {
-        //     for (let imes = iano == this.operacoes[0].getData().getFullYear()? this.operacoes[0].getData().getMonth() + 1 : 1; imes <= (iano == this.operacoes[this.operacoes.length-1].getData().getFullYear()? this.operacoes[this.operacoes.length-1].getData().getMonth() + 1 : 12); imes++) {
-        //         vetorRentabilidade.push(
-        //             {
-        //                 valor: this.calcularSaldo(imes, iano) * this.rentabilidadeMensal,
-        //                 mes: imes,
-        //                 ano: iano
-        //             }
-        //         )
-        //     }
-        // }
-        // vetorRentabilidade.forEach(v => console.log(v));
-        // return vetorRentabilidade.reduce((a,b) => {
-        //     return a + b.valor;
-        // }, 0);
-        return 1 + this.rentabilidadeMensal;
+        if (mes == 0)
+            mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
+        if (ano == 0)
+            ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+        let vetorRentabilidade = [];
+        let rentabilidadeAcumulada = 0;
+        for (let iano = this.operacoes[0].getData().getFullYear(); iano <= ano; iano++) {
+            for (let imes = iano == this.operacoes[0].getData().getFullYear() ? this.operacoes[0].getData().getMonth() + 1 : 1; imes <= (iano == ano ? mes : 12); imes++) {
+                let aux = 0;
+                this.operacoes.forEach(o => {
+                    if (o.getData().getMonth() + 1 === imes && o.getData().getFullYear() === iano) {
+                        aux += o.getValor();
+                    }
+                });
+                vetorRentabilidade.push({
+                    valor: aux,
+                    mes: imes,
+                    ano: iano
+                });
+            }
+        }
+        vetorRentabilidade.forEach(v => console.log(v));
+        return vetorRentabilidade.reduce((a, b) => {
+            return (a + b.valor) * (1 + this.rentabilidadeMensal);
+        }, 0);
     }
     calcularSaldo(mes = 0, ano = 0) {
         //Caso o mês e o ano não sejam dados como parâmetro será dada a data da ultima
@@ -57,9 +59,8 @@ class ContaPoupanca extends conta_1.default {
         let saldo = 0;
         for (let i = 0; i <= index; i++) {
             saldo += this.operacoes[i].getValor();
-            saldo *= this.calcularRendimento();
         }
-        return saldo;
+        return this.calcularRendimento(mes, ano);
     }
 }
 exports.default = ContaPoupanca;
