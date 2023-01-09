@@ -1,5 +1,5 @@
 export default class Cargo {
-    nome: string;
+    private nome: string;
     constructor(n: string){
         this.nome = n;
     }

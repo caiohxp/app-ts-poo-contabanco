@@ -5,8 +5,8 @@ import Conta from "./conta";
 import ContaCorrente from "./ccorrente";
 export default class Cliente extends Pessoa implements IUsuario{
     private vip: boolean;
-    enderecos: Endereco[];
-    conta: Conta[];
+    private enderecos: Endereco[];
+    private conta: Conta[];
     
     constructor(nome: string, cpf: string, telefone: string, vip: string){
         super(nome, cpf, telefone);

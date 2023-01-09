@@ -6,6 +6,9 @@ var Conta = /** @class */ (function () {
         this.numero = num;
         this.operacoes = [];
     }
+    Conta.prototype.getOperacoes = function () {
+        return this.operacoes;
+    };
     Conta.prototype.depositar = function (valor, data) {
         if (data === void 0) { data = new Date(); }
         this.operacoes.push(new credito_1["default"](valor, data));

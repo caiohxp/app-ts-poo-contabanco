@@ -30,19 +30,19 @@ var ContaCorrente = /** @class */ (function (_super) {
     };
     ContaCorrente.prototype.sacar = function (valor, data) {
         if (data === void 0) { data = new Date(); }
-        this.calcularSaldo() - valor < 0 && Math.abs(this.calcularSaldo() - valor) > this.limite ? console.log("Saque de", valor, "ultrapassa o limite.") : this.operacoes.push(new debito_1["default"](valor, data));
-        this.operacoes.sort(function (a, b) { return a.getData().getTime() - b.getData().getTime(); });
+        this.calcularSaldo() - valor < 0 && Math.abs(this.calcularSaldo() - valor) > this.limite ? console.log("Saque de", valor, "ultrapassa o limite.") : this.getOperacoes().push(new debito_1["default"](valor, data));
+        this.getOperacoes().sort(function (a, b) { return a.getData().getTime() - b.getData().getTime(); });
     };
     ContaCorrente.prototype.calcularSaldo = function (mes, ano) {
         if (mes === void 0) { mes = 0; }
         if (ano === void 0) { ano = 0; }
         //Caso o mês e o ano não sejam dados como parâmetro será dada a data da ultima
         if (mes == 0)
-            mes = this.operacoes[this.operacoes.length - 1].getData().getMonth() + 1;
+            mes = this.getOperacoes()[this.getOperacoes().length - 1].getData().getMonth() + 1;
         if (ano == 0)
-            ano = this.operacoes[this.operacoes.length - 1].getData().getFullYear();
+            ano = this.getOperacoes()[this.getOperacoes().length - 1].getData().getFullYear();
         var index = 0;
-        this.operacoes.forEach(function (o, i) {
+        this.getOperacoes().forEach(function (o, i) {
             //pega o index da data mais atual até a data fornecida pelo parâmetro
             //adiciono mais 1 ao mês pra pegar o getTime do mês inteiro
             if (o.getData().getTime() < (mes === 12 ? new Date("".concat(ano + 1, "-01")).getTime() : new Date("".concat(ano, "-").concat(mes + 1)).getTime()))
@@ -50,7 +50,7 @@ var ContaCorrente = /** @class */ (function (_super) {
         });
         var saldo = 0;
         for (var i = 0; i <= index; i++)
-            saldo += this.operacoes[i].getValor();
+            saldo += this.getOperacoes()[i].getValor();
         return saldo + this.limite;
     };
     return ContaCorrente;

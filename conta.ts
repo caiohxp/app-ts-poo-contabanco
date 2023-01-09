@@ -3,13 +3,15 @@ import Credito from "./credito";
 
 export default abstract class Conta {
     private numero: string;
-    operacoes: Array<Credito|Debito>;
+    private operacoes: Array<Credito|Debito>;
 
     constructor(num: string){
         this.numero = num;
         this.operacoes = [];
     }
-
+    getOperacoes() {
+        return this.operacoes;
+    }
     depositar(valor: number, data = new Date()){
         this.operacoes.push(new Credito(valor, data));
         this.operacoes.sort((a,b) => a.getData().getTime() - b.getData().getTime());
