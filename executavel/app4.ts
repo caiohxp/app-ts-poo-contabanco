@@ -1,6 +1,6 @@
-import Cliente from "./cliente";
-import ContaCorrente from "./ccorrente";
-import ContaPoupanca from "./cpoupanca";
+import Cliente from "../dominio/cliente";
+import ContaCorrente from "../dominio/conta-corrente";
+import ContaPoupanca from "../dominio/conta-poupanca";
 
 const cliente41 = new Cliente("Jorge", "12453533350", "31987490044","Sim");
 cliente41.setConta(new ContaCorrente(1500, "010360206"));

@@ -1,6 +1,5 @@
-import ContaCorrente from "./ccorrente";
-import Cliente from "./cliente";
-import ContaPoupanca from "./cpoupanca";
+import Cliente from "../dominio/cliente";
+import ContaPoupanca from "../dominio/conta-poupanca";
 
 const cliente5 = new Cliente("Darwin", "131313355566", "8993566435", "Sim");
 cliente5.setConta(new ContaPoupanca(0.01, "13579753"));

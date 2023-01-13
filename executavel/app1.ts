@@ -1,5 +1,5 @@
-import Funcionario from "./funcionario";
-import Cargo from "./cargo";
+import Funcionario from "../dominio/funcionario";
+import Cargo from "../dominio/cargo";
 
 // Crie dois funcionários do banco, um gerente e um atendente.
 

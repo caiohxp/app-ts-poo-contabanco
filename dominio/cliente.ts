@@ -2,7 +2,7 @@ import Pessoa from "./pessoa";
 import IUsuario from "./iusuario";
 import Endereco from "./endereco";
 import Conta from "./conta";
-import ContaCorrente from "./ccorrente";
+import ContaCorrente from "./conta-corrente";
 export default class Cliente extends Pessoa implements IUsuario{
     private vip: boolean;
     private enderecos: Endereco[];
@@ -21,7 +21,7 @@ export default class Cliente extends Pessoa implements IUsuario{
     autenticar(): boolean {
         return true;
     }
-    setEndereco(cep: string, logradouro: string, numero: string, complemento: string, cidade: string, uf: string): void{
+    addEndereco(cep: string, logradouro: string, numero: string, complemento: string, cidade: string, uf: string): void{
         this.enderecos.push(new Endereco(cep,logradouro,numero,complemento,cidade,uf));
     }
     setConta(conta: Conta): void{
